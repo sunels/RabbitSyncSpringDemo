@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  balance-service:
+    build:
+      context: ./BalanceService
+    ports:
+      - "8081:8081"
+    # Add any additional configurations as needed for your service
+
+  user-service:
+    build:
+      context: ./UserService
+    ports:
+      - "8080:8080"
+    # Add any additional configurations as needed for your service
