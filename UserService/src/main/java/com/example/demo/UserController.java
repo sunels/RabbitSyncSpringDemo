@@ -56,18 +56,19 @@ public class UserController {
         System.out.println("UserController has SENT a rabbit message = " + userRequest);
 
         return future.thenApplyAsync(userBalance -> {
-            if (userBalance != null) {
-                return ResponseEntity.ok("User balance for user ID " + userRequest.getUserId() + " is: " + userBalance);
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Failed to get user balance for user ID: " + userRequest.getUserId());
-            }
-        }).exceptionally(ex -> {
-            // Handle exceptions, if any
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to get user balance for user ID: " + userRequest.getUserId());
-        }).whenComplete((responseEntity, throwable) -> {
-            correlationIdFutureMap.remove(correlationId);
-        }).join();
+                    if (userBalance != null) {
+                        return ResponseEntity.ok("User balance for user ID " + userRequest.getUserId() + " is: " + userBalance);
+                    } else {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .body("Failed to get user balance for user ID: " + userRequest.getUserId());
+                    }
+                }).exceptionally(ex -> {
+                    // Handle exceptions, if any
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body("Failed to get user balance for user ID: " + userRequest.getUserId());
+                }).orTimeout(5, TimeUnit.SECONDS) // Timeout duration
+                .whenComplete((responseEntity, throwable) -> {
+                    correlationIdFutureMap.remove(correlationId);
+                }).join();
     }
 }
