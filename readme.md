@@ -1,3 +1,11 @@
+# User_Service is communicationg with Balance_Service using RabbitMQ 
+[ 
+  - Microservice communication via message brokers
+  - Scale Service independently
+  - DynamicQueueNames RabbitMQ + Spring
+  - RabbitMQ replyTo
+]
+
 # START RABBIT :
     cd UserService/src/main/resources
     docker-compose up -d
