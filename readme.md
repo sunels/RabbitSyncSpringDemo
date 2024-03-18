@@ -1,10 +1,8 @@
-# User_Service is communicationg with Balance_Service using RabbitMQ 
-[ 
+# User_Service is communicating with Balance_Service using RabbitMQ 
   - Microservice communication via message brokers
   - Scale Service independently
   - DynamicQueueNames RabbitMQ + Spring
   - RabbitMQ replyTo
-]
 
 # START RABBIT :
     cd UserService/src/main/resources
@@ -24,3 +22,5 @@
 # SEND HTTP REQUEST
     curl -X POST -H "Content-Type: application/json" -d '{"userId":"123"}' http://localhost:8080/get-user-balance
     curl -X POST -H "Content-Type: application/json" -d '{"userId":"123"}' http://localhost:8282/get-user-balance
+
+![](Screenshot from 2024-03-18 11-53-16.png)
